@@ -15,7 +15,14 @@
         {
             var db = new MessageContext();
             var mess=db.Messages.ToArray();
-            a.Id = mess[mess.Length - 1].Id + 1;
+            try
+            {
+                a.Id = mess[mess.Length - 1].Id + 1;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                a.Id = 1;
+            }
             a.Dataa = DateTime.Now;
             db.Messages.Add(a);
             db.SaveChanges();
